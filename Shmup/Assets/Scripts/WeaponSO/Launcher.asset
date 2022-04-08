@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1458acf4f237804a8140a0738d7efbc, type: 3}
+  m_Name: Launcher
+  m_EditorClassIdentifier: 
+  weaponName: Rocket Launcher
+  weaponType: 2
+  weaponSprite: {fileID: 21300000, guid: ab6e23fab56176240814663894bcbae2, type: 3}
+  damage: 50
+  range: 10
+  fireRate: 45
+  reloadTime: 2
+  clipSize: 4
+  critChance: 5
+  critMultiplier: 2
+  projectile: {fileID: 3651821508655201957, guid: f4d097b602c278741852905d6e03d817, type: 3}
+  projVelocity: 7.5
+  explosionRadius: 2
+  sprayAmount: 0
+  shottyProjCount: 0
+  shottyScatterTightness: 0

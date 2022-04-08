@@ -1,0 +1,10 @@
+# DoD 
+
+# Don't need the art saves in github
+Art_Saves
+
+# Don't need builds of the game
+Builds
+
+Shmup/Library/ArtifactDB.file
+Shmup/Libary/Artifacts
