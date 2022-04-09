@@ -59,6 +59,7 @@
     <Compile Include="Assets\Scripts\InputSystem\PlayerInputActions.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IDamageable.cs" />
     <Compile Include="Assets\Scripts\DeathRecapScreen.cs" />
+    <Compile Include="Assets\Scripts\Items\ItemInventory.cs" />
     <Compile Include="Assets\Scripts\Enemy Related Scripts\AIManager.cs" />
     <Compile Include="Assets\Scripts\Projectiles\Rocket.cs" />
     <Compile Include="Assets\Scripts\GameStatTracker.cs" />
@@ -81,7 +82,7 @@
     <Compile Include="Assets\Scripts\Character Scripts\CharStats.cs" />
     <Compile Include="Assets\Scripts\Items\ItemBase.cs" />
     <Compile Include="Assets\Scripts\MainMenu.cs" />
-    <Compile Include="Assets\Scripts\Items\ItemInventory.cs" />
+    <Compile Include="Assets\Scripts\Items\AmmoBoxScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

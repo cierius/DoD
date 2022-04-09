@@ -147,6 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showPath: 0
   showAttackRadius: 0
+  ammoBox: {fileID: 8445961227814356650, guid: defcd57da45ccb8449f5cffc944e1d51, type: 3}
   state: 0
   SPEED: 30
   invuln: 0

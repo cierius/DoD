@@ -407,7 +407,7 @@ public class CharController : MonoBehaviour
     public void ReceiveDamage(float damage)
     {
         stats.healthCurrent -= damage - damage*(stats.damageReductionPercentage/100f);
-        print("Without: " + damage + " With defense: " + (damage - damage * (stats.damageReductionPercentage / 100f)));
+        //print("Without: " + damage + " With defense: " + (damage - damage * (stats.damageReductionPercentage / 100f)));
         healthBar.value = stats.healthCurrent;
     }
 

@@ -1,10 +1,12 @@
-# DoD 
+# DoD
 
-# Don't need the art saves in github
-Art_Saves
+# Ignore art saves, these will only be handled via main PC
+Art_Saves/
 
-# Don't need builds of the game
-Builds
+# Don't need the builds of the game
+Builds/
 
-Shmup/Library/ArtifactDB.file
-Shmup/Libary/Artifacts
+# Don't need artifacts, namely the artifactDB file
+Artifacts/
+ArtifactDB.file
+

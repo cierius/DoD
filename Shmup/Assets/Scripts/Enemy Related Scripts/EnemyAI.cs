@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour, IDamageable
 {
+    [Header("----- Debug -----")]
     public bool showPath = false;
     public bool showAttackRadius = false;
+
+    [Header("----- Ammo & Item Drop Properties -----")]
+    [Space(10)]
+    public GameObject ammoBox;
+    public int ammoBoxChance;
 
     //EnemyType e;
 
@@ -19,26 +25,27 @@ public class EnemyAI : MonoBehaviour, IDamageable
     }
     public AIState state; // Default state is Idle
 
-    [SerializeField] private float SPEED = 17.5f;
-
+    [Header("----- Enemy Properties -----")]
+    [Space(10)]
+    public float speed = 17.5f;
     public bool invuln = false;
     public int health = 100;
     public int damage = 2;
 
+    [Header("----- Pathfinding Properties -----")]
+    [Space(10)]
     public List<Vector3> path = new List<Vector3>();
     private int currNode = 0;
     private float nodeTimeOut = 2.0f; // Time until AI re-pathfinds; may be stuck. THIS IS A QUICK FIX.
     private float nodeTimer = 0;
 
-    //private int distToPlayer = 0;
-    [SerializeField] private int maxRangeSearch = 5; // Default is 10
+    public int maxRangeSearch = 5; // Default is 10
     private int minRangeSearch = 2;
     private float attackRange = 3f;
     private Vector2 playerAttackOriginPos = Vector2.zero;
     private Vector2 playerOrigin = Vector2.zero;
     private LayerMask playerMask;
 
-    //private bool inRange = false;
     public bool hasPath = false;
 
     private Transform playerTrans;
@@ -178,7 +185,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
                     nodeTimer = 0;
                 }
                 else
-                    trans.position = Vector3.MoveTowards(trans.position, path[currNode], SPEED / 10f * Time.deltaTime);
+                    trans.position = Vector3.MoveTowards(trans.position, path[currNode], speed / 10f * Time.deltaTime);
             }
 
 
@@ -291,8 +298,23 @@ public class EnemyAI : MonoBehaviour, IDamageable
         health -= amount;
     }
 
+    // Chance to drop an ammo box upon death
+    private void DropAmmoBoxChance(int chance)
+    {
+        var randNum = Random.Range(0, 99);
+
+        if(randNum >= 0 && randNum <= chance)
+        {
+            var drop = Instantiate(ammoBox, trans);
+            drop.transform.parent = null;
+            drop.transform.position += new Vector3(0, 1, 0);
+            drop.transform.localScale = new Vector2(1, 1);
+        }
+    }
+
     public void Death()
     {
+        DropAmmoBoxChance(10);
         Destroy(gameObject);
     }
 }
