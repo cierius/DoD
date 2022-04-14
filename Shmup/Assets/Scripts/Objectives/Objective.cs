@@ -88,7 +88,7 @@ public class Objective : MonoBehaviour
 
             case ObjectiveType.FindTarget:
                 if (Mathf.Abs(Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, target.transform.position)) < 1.5f) // Win Condition
-                    return "COMPLETE"; 
+                    return "COMPLETE";
                 else
                     return "Keep Searchin'";
 

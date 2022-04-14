@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\Projectiles\Bullet.cs" />
     <Compile Include="Assets\Scripts\Objectives\Objective.cs" />
     <Compile Include="Assets\Scripts\Objectives\ObjectiveSlide.cs" />
+    <Compile Include="Assets\Scripts\Items\AmmoBoxScript.cs" />
     <Compile Include="Assets\Scripts\Items\ItemEffect.cs" />
     <Compile Include="Assets\Scripts\BikeToNextLevelScript.cs" />
     <Compile Include="Assets\Scripts\Enemy Related Scripts\EnemyType.cs" />
@@ -82,7 +83,8 @@
     <Compile Include="Assets\Scripts\Character Scripts\CharStats.cs" />
     <Compile Include="Assets\Scripts\Items\ItemBase.cs" />
     <Compile Include="Assets\Scripts\MainMenu.cs" />
-    <Compile Include="Assets\Scripts\Items\AmmoBoxScript.cs" />
+    <Compile Include="Assets\Scripts\Items\ItemPool.cs" />
+    <Compile Include="Assets\Scripts\HUD\PauseMenu.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

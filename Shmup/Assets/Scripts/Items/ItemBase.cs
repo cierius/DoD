@@ -74,6 +74,7 @@ public class ItemBase : MonoBehaviour
     private void Awake()
     {
         stats = GameObject.FindWithTag("Player").GetComponent<CharStats>();
+        GetComponentInChildren<TextMesh>().text = itemName;
     }
 
 

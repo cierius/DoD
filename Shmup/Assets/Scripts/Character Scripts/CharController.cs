@@ -6,7 +6,9 @@ using UnityEngine.UI;
 
 public class CharController : MonoBehaviour
 {
+    [SerializeField] GameObject pauseMenu;
     private bool isPaused = false;
+    public bool isReloading = false;
 
     private CharStats stats;
 
@@ -45,7 +47,8 @@ public class CharController : MonoBehaviour
     //Roll HUD
     [SerializeField] private SpriteRenderer rollHUDIcon;
 
-    public bool isReloading = false;
+    
+
 
     private void OnEnable()
     {
@@ -128,7 +131,7 @@ public class CharController : MonoBehaviour
             stats.weaponLastFired[i] += Time.deltaTime;
         }
 
-        if(isFiring)
+        if(isFiring && !isPaused)
         {
             if (stats.weaponLastFired[stats.currWeaponIndex] >= 60f / (stats.weaponEquipped.fireRate + stats.weaponEquipped.fireRate*stats.fireRatePercentage) && !isRolling && stats.ammoInMag[stats.currWeaponIndex] > 0 && isReloading == false)
             {
@@ -166,7 +169,7 @@ public class CharController : MonoBehaviour
         {
             Movement();
         }
-        else if(isRolling)
+        else if(isRolling && !isPaused)
         {
             rollTime += Time.deltaTime;
             if(rollTime >= maxRollTime)
@@ -260,7 +263,7 @@ public class CharController : MonoBehaviour
         }
     }
 
-
+    GameObject menuInst = null;
     public void PauseMenu(InputAction.CallbackContext context)
     {
         if(context.started == true)
@@ -269,10 +272,16 @@ public class CharController : MonoBehaviour
             {
                 isPaused = false;
                 Time.timeScale = 1;
+
+                if (menuInst != null)
+                    Destroy(menuInst);
             }
             else
             {
                 isPaused = true;
+                menuInst = Instantiate(pauseMenu);
+                menuInst.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -5);
+
                 Time.timeScale = 0;
             }
         }
@@ -281,7 +290,7 @@ public class CharController : MonoBehaviour
 
     public void Roll(InputAction.CallbackContext context)
     {
-        if(context.started == true && !isRolling && !rollOnCooldown)
+        if(context.started == true && !isRolling && !rollOnCooldown && !isPaused)
         {
             isRolling = true;
             rollOnCooldown = true;

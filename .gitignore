@@ -7,6 +7,6 @@ Art_Saves/
 Builds/
 
 # Don't need artifacts, namely the artifactDB file
-Artifacts/
+Shmup/Library/Artifacts/*
 ArtifactDB.file
 

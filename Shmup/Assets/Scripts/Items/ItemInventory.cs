@@ -28,11 +28,19 @@ public class ItemInventory : MonoBehaviour
 
         newItem.transform.parent = inventoryHUD.transform;
 
-        var index = 0f;
+        var xIndex = 0;
+        var yIndex = 0;
         foreach(GameObject item in items)
         {
-            item.transform.position = new Vector3((inventoryHUD.transform.position.x - inventoryHUD.transform.localScale.x/2) + 0.25f + 0.4f*index, (inventoryHUD.transform.position.y + inventoryHUD.transform.localScale.y/2) - 0.75f, -5);
-            index++;
+            item.transform.position = new Vector3((inventoryHUD.transform.position.x - inventoryHUD.transform.localScale.x/2) + 0.25f + 0.5f*xIndex, 
+                                                    (inventoryHUD.transform.position.y + inventoryHUD.transform.localScale.y/2) - 0.75f - 0.5f*yIndex, inventoryHUD.transform.position.z - 1);
+            item.GetComponentInChildren<MeshRenderer>().enabled = false;
+            xIndex++;
+            if ((xIndex % 6) == 0) // Every 6 items the row will be incremented
+            {
+                yIndex++;
+                xIndex = 0;
+            }
         }
     }
 

@@ -11,6 +11,7 @@ TagManager:
   - ObjectivesSlide
   - Rune
   - Item
+  - ItemPool
   layers:
   - Default
   - TransparentFX

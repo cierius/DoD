@@ -50,6 +50,11 @@ public class Singleton : MonoBehaviour
         SceneManager.LoadScene(currLevel.buildIndex, LoadSceneMode.Single);
     }
 
+    public void ReturnToMenu()
+    {
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
+    }
+
     public void NextLevel()
     {
         var currLevel = SceneManager.GetActiveScene();

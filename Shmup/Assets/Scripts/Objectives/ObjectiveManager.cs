@@ -95,10 +95,21 @@ public class ObjectiveManager : MonoBehaviour
                 if (obj.CheckObjective() && !obj.isObjectiveComplete) // Returns a bool based on the objective type and completion status
                 {
                     obj.isObjectiveComplete = true;
-                    print("Objective Finished!");
+                    SpawnItem();
+                    print("Objective Finished - Spawning Item!");
                 }
             }
         }
+    }
+
+
+    private void SpawnItem()
+    {
+        var item = GameObject.FindWithTag("ItemPool").GetComponent<ItemPool>().RandomItem();
+        var playerPos = GameObject.FindWithTag("Player").transform.position;
+
+        var instItem = Instantiate(item);
+        instItem.transform.position = new Vector2(playerPos.x, playerPos.y + 1);
     }
 
 
