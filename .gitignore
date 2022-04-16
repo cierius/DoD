@@ -8,5 +8,5 @@ Builds/
 
 # Don't need artifacts, namely the artifactDB file
 Shmup/Library/Artifacts/*
-Shmup/Library/ArtifactDB.*
+Shmup/Library/ArtifactDB
 
