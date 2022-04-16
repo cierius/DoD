@@ -71,7 +71,7 @@ TrailRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Time: 0.33
   m_Parameters:
     serializedVersion: 3
@@ -221,7 +221,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   m_Color: {r: 0.9869063, g: 1, b: 0, a: 1}
   m_FlipX: 0
@@ -282,6 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 724775f9f912f044ab205c3c31ae12fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  range: 20
   bulletDamage: 10
   critChance: 5
   critMultiplier: 0

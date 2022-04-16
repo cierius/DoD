@@ -40,18 +40,52 @@ public class Objective : MonoBehaviour
     public int holdTimeCurr;
 
 
-    //Find Exit data
+    //Find Target
+    public enum TargetType
+    {
+        Car,
+        House,
+        Person
+    }
     [Header("Find Target")]
+    public TargetType targetType;
     public Transform target;
 
 
     //Survival Data
     [Header("Survival")]
     public int survivalTime;
-    public int survivalTimeCurr;
+    public float survivalTimeCurr;
 
 
-    // Called by the objective manager script
+    private void Update()
+    {
+        if (objective == ObjectiveType.Survival && !isObjectiveComplete)
+            survivalTimeCurr += Time.deltaTime;
+    }
+
+
+    private void Awake()
+    {
+        if (targetType == TargetType.Car)
+            target = GameObject.FindGameObjectWithTag("CarTarget").GetComponent<Transform>();
+
+        RandomifyElimObjectiveReqs();
+    }
+
+
+    // Adds a bit of randomness to the objective requirements
+    private void RandomifyElimObjectiveReqs()
+    {
+        if(objective == ObjectiveType.Elimination)
+        {
+            elimsRequired += Random.Range(-2, 5);
+        }
+
+    }
+
+
+    // Called by the objective manager script to see if the objective has been completed
     public bool CheckObjective()
     {
         switch(objective)
@@ -69,11 +103,19 @@ public class Objective : MonoBehaviour
                     return true;
                 else
                     return false;
-        
+
+            case ObjectiveType.Survival:
+                if (survivalTimeCurr > survivalTime)
+                    return true;
+                else
+                    return false;
+
         }
         return false;
     }
 
+
+    // Returns a string value for the status of the objective
     public string CurrentObjective()
     {
         switch (objective)
@@ -91,6 +133,12 @@ public class Objective : MonoBehaviour
                     return "COMPLETE";
                 else
                     return "Keep Searchin'";
+
+            case ObjectiveType.Survival:
+                if (survivalTimeCurr > survivalTime)
+                    return "COMPLETE";
+                else
+                    return Mathf.Round(survivalTimeCurr) + "/" + survivalTime;
 
         }
         return "Null";

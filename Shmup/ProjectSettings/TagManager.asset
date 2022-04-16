@@ -12,6 +12,7 @@ TagManager:
   - Rune
   - Item
   - ItemPool
+  - CarTarget
   layers:
   - Default
   - TransparentFX

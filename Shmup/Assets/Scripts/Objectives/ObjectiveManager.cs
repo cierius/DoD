@@ -11,29 +11,24 @@ using UnityEngine;
 public class ObjectiveManager : MonoBehaviour
 {
     private GameObject objectiveSlide;
-    private TextMesh[] objTexts = new TextMesh[10];
+    private List<TextMesh> objTexts = new List<TextMesh>();
 
-    public List<Objective> objectives = new List<Objective>();
-    private int objectiveCount;
+    public List<Objective> objectivePool = new List<Objective>();
+    [Tooltip("Selected Objectives")] public List<Objective> objectivesSelected = new List<Objective>();
 
     private CharStats playerWeaponEquipped;
 
     public void Awake()
     {
         playerWeaponEquipped = GameObject.FindWithTag("Player").GetComponent<CharStats>();
-
         objectiveSlide = GameObject.FindWithTag("ObjectivesSlide");
-        for(int i=0; i<objTexts.Length; i++)
-        {
-            objTexts[i] = objectiveSlide.transform.GetChild(i).GetComponent<TextMesh>();
-        }
 
-        UpdateObjectiveList();
-    }
+        for(int i=1; i <= 8; i++) // Refs for ObjectiveSlide texts
+            objTexts.Add(objectiveSlide.transform.GetChild(i).GetComponent<TextMesh>());
 
-    public void Update()
-    {
-        
+        objTexts.Reverse();
+
+        objectivesSelected = RandomObjectiveSelection();
     }
 
     public void FixedUpdate()
@@ -43,43 +38,41 @@ public class ObjectiveManager : MonoBehaviour
     }
 
 
-    // Finds and adds objectives to a list
-    public void UpdateObjectiveList()
+    private List<Objective> RandomObjectiveSelection() // Selects 4 random objectives from the pool
     {
-        objectives.Clear();
-        objectiveCount = 0;
+        List<Objective> objList = new List<Objective>();
 
-        var objs = GameObject.FindGameObjectsWithTag("Objective");
-
-        foreach(var obj in objs)
+        for (int i = 0; i < 4; i++)
         {
-            objectives.Add(obj.GetComponent<Objective>());
-            objectiveCount++;
+            var rand = Random.Range(0, objectivePool.Count);
+            var objInstance = Instantiate(objectivePool[rand], gameObject.transform);
+
+            objList.Add(objInstance.GetComponent<Objective>());
         }
 
-        UpdateObjectivesHUD();
+        return objList;
     }
 
 
     // Shows the objectives on the ObjectivesHUD
     private void UpdateObjectivesHUD()
     {
-        int index = 1; // index 0 is the title Objectives
+        int index = 0; // index 0 is the title Objectives
 
-        foreach(var obj in objectives)
+        foreach(var obj in objectivesSelected)
         {
             if (!obj.isObjectiveComplete)
             {
-                objTexts[index].text = obj.objectiveName;
-                index++;
                 objTexts[index].text = obj.CurrentObjective();
+                index++;
+                objTexts[index].text = obj.objectiveName;
                 index++;
             }
             else
             {
-                objTexts[index].text = obj.objectiveName;
-                index++;
                 objTexts[index].text = "Complete";
+                index++;
+                objTexts[index].text = obj.objectiveName;
                 index++;
             }
         }
@@ -88,22 +81,19 @@ public class ObjectiveManager : MonoBehaviour
 
     private void CheckObjectivesCompleted()
     {
-        if (objectiveCount > 0)
+        foreach (Objective obj in objectivesSelected)
         {
-            foreach (Objective obj in objectives)
+            if (obj.CheckObjective() && !obj.isObjectiveComplete) // Returns a bool based on the objective type and completion status
             {
-                if (obj.CheckObjective() && !obj.isObjectiveComplete) // Returns a bool based on the objective type and completion status
-                {
-                    obj.isObjectiveComplete = true;
-                    SpawnItem();
-                    print("Objective Finished - Spawning Item!");
-                }
+                obj.isObjectiveComplete = true;
+                SpawnItem();
+                print("Objective Finished - Spawning Item!");
             }
         }
     }
 
 
-    private void SpawnItem()
+    private void SpawnItem() // Called when CheckObjectivesCompleted has a completed objective
     {
         var item = GameObject.FindWithTag("ItemPool").GetComponent<ItemPool>().RandomItem();
         var playerPos = GameObject.FindWithTag("Player").transform.position;
@@ -115,7 +105,7 @@ public class ObjectiveManager : MonoBehaviour
 
     public void Elimination() // Any elimination type objective will refer to this function
     {
-        foreach (Objective obj in objectives)
+        foreach (Objective obj in objectivesSelected)
         {
             if (obj.objective == Objective.ObjectiveType.Elimination && obj.weaponUsed == Objective.WeaponType.Any) // If any weapon can be used
             {

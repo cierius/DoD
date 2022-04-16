@@ -24,7 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8876072519647689264}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -43,4 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f462a81b883dbea479eaa6f426e9f39e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectives: []
+  objectivePool:
+  - {fileID: 5702416974428819907, guid: f8df0c08ec123944db7c7466daf2e7e8, type: 3}
+  - {fileID: 5992204941296456295, guid: 3f691f2d7b342ee44af14c3e1545435f, type: 3}
+  - {fileID: 3723184823842428192, guid: 9a4dc4252edd1c947bdea7a2b9bee28b, type: 3}
+  - {fileID: 8688749393800625474, guid: 152662bb7165cdd4a9cd932dab053df6, type: 3}
+  - {fileID: 6853652712350730340, guid: c5bc0e75175d7b6499c374cfc6a9e178, type: 3}
+  - {fileID: 2702877871459010072, guid: b138188e8b53b094fb5338e6d00cbbc6, type: 3}
+  objectivesSelected: []

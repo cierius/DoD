@@ -49,7 +49,6 @@ public class EnemySpawnerScript : MonoBehaviour
             if (randSpawnDelay == 0) // Sets the random delay and the random position for the next enemy spawn
             {
                 randSpawnDelay = Random.Range(minSpawnDelay, maxSpawnDelay);
-                print(randSpawnDelay);
                 randSpawnPos = new Vector2(transform.position.x + Random.Range(-spawnRadius, spawnRadius), transform.position.y + Random.Range(-spawnRadius, spawnRadius));
             }
 

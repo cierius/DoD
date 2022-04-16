@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: aec782d8c37466c4e867e0d1f5256e1b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -99,7 +99,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.075}
+  m_Offset: {x: 0, y: -0.19084038}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -110,7 +110,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.8}
+  m_Size: {x: 0.45, y: 0.5683193}
   m_EdgeRadius: 0
 --- !u!50 &1221584800
 Rigidbody2D:
@@ -148,8 +148,9 @@ MonoBehaviour:
   showPath: 0
   showAttackRadius: 0
   ammoBox: {fileID: 8445961227814356650, guid: defcd57da45ccb8449f5cffc944e1d51, type: 3}
+  ammoBoxChance: 5
   state: 0
-  SPEED: 30
+  speed: 30
   invuln: 0
   health: 100
   damage: 2
@@ -195,7 +196,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Positions:
   - {x: 0, y: 0.35, z: -1}
   - {x: 0, y: 0.35, z: -1}
