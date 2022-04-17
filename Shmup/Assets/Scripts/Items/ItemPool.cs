@@ -4,12 +4,22 @@ using UnityEngine;
 
 public class ItemPool : MonoBehaviour
 {
+    public static ItemPool Instance { get; private set; } = null;
     public List<GameObject> pool = new List<GameObject>();
 
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        // Singleton method, only one instance
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
     }
 
 

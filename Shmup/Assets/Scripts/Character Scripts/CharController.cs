@@ -6,8 +6,10 @@ using UnityEngine.UI;
 
 public class CharController : MonoBehaviour
 {
-    [SerializeField] GameObject pauseMenu;
-    private bool isPaused = false;
+    [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject deathRecap;
+
+    public bool isPaused = false;
     public bool isReloading = false;
 
     private CharStats stats;
@@ -72,14 +74,20 @@ public class CharController : MonoBehaviour
         laserLineRenderer = laser.GetComponent<LineRenderer>();
         shootingSlider = GameObject.Find("AmmoAndShooting_Canvas/ShootingSlider").GetComponent<Slider>();
 
+    }
+
+    private void Start()
+    {
+        if(!Singleton.Instance.GetFirstLoad())
+            Singleton.Instance.LoadPlayerStats();
+
         stats = GetComponent<CharStats>();
         stats.healthTotal = stats.healthBase + stats.healthAdditive;
-        stats.healthCurrent = stats.healthTotal;
 
         StartCoroutine(stats.HealthRegen()); // Starts the health regen loop that continues until player dies
 
         healthBar.maxValue = stats.healthTotal;
-        healthBar.value = stats.healthTotal;
+        healthBar.value = stats.healthCurrent;
 
         weaponHUD = GameObject.Find("Weapon_Selection_HUD/Selected_Weapon").GetComponent<SpriteRenderer>();
         weaponHUD.sprite = stats.weaponEquipped.weaponSprite;
@@ -437,6 +445,13 @@ public class CharController : MonoBehaviour
         
 
         print("Player has died");
-        Singleton.Instance.PlayerDied(5);
+        ShowDeathRecap();
+    }
+
+
+    private void ShowDeathRecap()
+    {
+        var d = Instantiate(deathRecap, transform);
+        d.transform.localPosition = Vector2.zero;
     }
 }

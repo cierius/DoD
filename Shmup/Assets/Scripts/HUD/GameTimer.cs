@@ -24,7 +24,7 @@ public class GameTimer : MonoBehaviour
 
         currTimeSec += Time.deltaTime;
 
-        if(currTimeSec >= 10f && currTimeMin >= 10)
+        if(currTimeSec > 10f && currTimeMin > 10)
             timeString = currTimeMin.ToString() + ":" + Mathf.Round(currTimeSec).ToString();
         else if(currTimeSec >= 10f && currTimeMin < 10)
             timeString = "0" + currTimeMin.ToString() + ":" + Mathf.Round(currTimeSec).ToString();

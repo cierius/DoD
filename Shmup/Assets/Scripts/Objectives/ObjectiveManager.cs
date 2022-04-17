@@ -18,6 +18,8 @@ public class ObjectiveManager : MonoBehaviour
 
     private CharStats playerWeaponEquipped;
 
+    private AudioSource completionSound;
+
     public void Awake()
     {
         playerWeaponEquipped = GameObject.FindWithTag("Player").GetComponent<CharStats>();
@@ -29,6 +31,8 @@ public class ObjectiveManager : MonoBehaviour
         objTexts.Reverse();
 
         objectivesSelected = RandomObjectiveSelection();
+
+        completionSound = GetComponent<AudioSource>();
     }
 
     public void FixedUpdate()
@@ -85,6 +89,9 @@ public class ObjectiveManager : MonoBehaviour
         {
             if (obj.CheckObjective() && !obj.isObjectiveComplete) // Returns a bool based on the objective type and completion status
             {
+                completionSound.volume = Singleton.Instance.fxVol;
+                completionSound.Play();
+
                 obj.isObjectiveComplete = true;
                 SpawnItem();
                 print("Objective Finished - Spawning Item!");

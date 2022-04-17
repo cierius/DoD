@@ -18,7 +18,7 @@ public class CharStats : MonoBehaviour
     public float healthBase = 100; // Max health without any additives
     public float healthAdditive = 0f;
     public float healthTotal; // Max health with additives
-    public float healthCurrent;
+    public float healthCurrent = 100f;
     public float healthRegen = 0f; // Hp regen per sec (ticks 4 times per sec)
     public float damageReductionPercentage = 0f;
 
@@ -40,19 +40,25 @@ public class CharStats : MonoBehaviour
     public int currWeaponIndex = 0; // 0 is rifle
 
 
-    public void Awake()
+
+    private void Awake()
     {
         charController = GetComponent<CharController>();
         ammoHud.Add(GameObject.Find("Ammo_HUD/Current_Mag").GetComponent<TextMesh>());
         ammoHud.Add(GameObject.Find("Ammo_HUD/Total_Ammo").GetComponent<TextMesh>());
 
         reloadingSlider = GameObject.Find("AmmoAndShooting_Canvas/ReloadingSlider").GetComponent<Slider>();
+    }
 
-        for (int i=0; i<weapons.Count; i++)
-        {
-            ammoInMag[i] = weapons[i].clipSize;
-            magsInInventory[i] = magCarryMax[i];
-        }
+
+    private void Start()
+    {
+        if (Singleton.Instance.GetFirstLoad())
+            for (int i = 0; i < weapons.Count; i++)
+            {
+                ammoInMag[i] = weapons[i].clipSize;
+                magsInInventory[i] = magCarryMax[i];
+            }
 
         UpdateAmmoHUD();
     }

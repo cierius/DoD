@@ -92,8 +92,6 @@ public class Bullet : MonoBehaviour, IProjectile
 
             Destroy(this.gameObject);
 
-            print(bulletDamage);
-
             coll.gameObject.GetComponent<IDamageable>().ReceiveDamage(bulletDamage); // this is the damage dealing part
         }
     }

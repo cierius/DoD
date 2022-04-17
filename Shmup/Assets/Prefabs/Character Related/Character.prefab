@@ -78,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: bdc76760e02d9e34097f01d0bc694ca7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -102,7 +102,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cf8874c09b55bb4196a772a9ca96482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseMenu: {fileID: 0}
+  pauseMenu: {fileID: 743086819509672546, guid: d5596fc2e02417f408256957d2fda467, type: 3}
+  deathRecap: {fileID: 1240748497837546147, guid: 101f79bbe84df5844b2b6b3a10f77fe2, type: 3}
+  isPaused: 0
   isReloading: 0
   laser: {fileID: 0}
   rollHUDIcon: {fileID: 1938727805988927885}
@@ -194,7 +196,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.15}
+  m_Offset: {x: 0, y: -0.2}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -205,8 +207,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.75}
-  m_EdgeRadius: 0
+  m_Size: {x: 0.45, y: 0.5}
+  m_EdgeRadius: 0.05
 --- !u!114 &7730491708691677320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -543,6 +545,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1872107219652494342, guid: 513b96ba487e6fe4eb4a8fa6d142091b, type: 3}
+      propertyPath: m_Name
+      value: Items_Text
+      objectReference: {fileID: 0}
     - target: {fileID: 2578452602738596728, guid: 513b96ba487e6fe4eb4a8fa6d142091b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.475
@@ -602,6 +608,10 @@ PrefabInstance:
     - target: {fileID: 5337005533618546218, guid: 513b96ba487e6fe4eb4a8fa6d142091b, type: 3}
       propertyPath: m_TagString
       value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 5533777792332709623, guid: 513b96ba487e6fe4eb4a8fa6d142091b, type: 3}
+      propertyPath: m_Text
+      value: Items
       objectReference: {fileID: 0}
     - target: {fileID: 6526009544105873972, guid: 513b96ba487e6fe4eb4a8fa6d142091b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -663,6 +673,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 7730491708904436015}
+    - target: {fileID: 6960299416300565436, guid: 513b96ba487e6fe4eb4a8fa6d142091b, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6960299416666800426, guid: 513b96ba487e6fe4eb4a8fa6d142091b, type: 3}
       propertyPath: m_Color.b
       value: 0.33579564
@@ -776,6 +790,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7823714445179099361, guid: 513b96ba487e6fe4eb4a8fa6d142091b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7823714445179099361, guid: 513b96ba487e6fe4eb4a8fa6d142091b, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
@@ -849,11 +867,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1727464332fc44a44aec571900cf1619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &998314191728685176 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 630517476423924030, guid: 513b96ba487e6fe4eb4a8fa6d142091b, type: 3}
+  m_PrefabInstance: {fileID: 367805580478531910}
+  m_PrefabAsset: {fileID: 0}
 --- !u!212 &1938727805988927885 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 2305011301596803275, guid: 513b96ba487e6fe4eb4a8fa6d142091b, type: 3}
   m_PrefabInstance: {fileID: 367805580478531910}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &142015975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 998314191728685176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df9e118ab1a993247a179195317f6f03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1774999856
 MonoBehaviour:
   m_ObjectHideFlags: 0
