@@ -7,11 +7,11 @@ public class Bullet : MonoBehaviour, IProjectile
     private CharStats stats;
 
     private Vector2 startingPos;
-    public float range = 20f;
+    private float range;
 
-    public int bulletDamage = 10;
-    public int critChance = 5;
-    public int critMultiplier;
+    private float bulletDamage;
+    private int critChance;
+    private int critMultiplier;
 
     public GameObject floatingDamageText;
 
@@ -49,7 +49,7 @@ public class Bullet : MonoBehaviour, IProjectile
 
     public void SetCritMultiplier(int multiplier) => critMultiplier = multiplier + stats.critMultiplierAdditive;
 
-    public void SetDamage(int dmg) => bulletDamage = dmg + Mathf.RoundToInt(stats.damageAdditive);
+    public void SetDamage(float dmg) => bulletDamage = (dmg + (stats.damageAdditive*dmg)) * stats.damageMultiplier;
 
 
     // Rotates the bullet to be looking at the point of fire
@@ -71,8 +71,8 @@ public class Bullet : MonoBehaviour, IProjectile
         }
         else if(coll.gameObject.GetComponent<IDamageable>() != null)
         {
-            // Vary the damage a little
-            bulletDamage += Random.Range(-2, 2);
+            // Vary the damage by upto 10% of the bullets damage
+            bulletDamage += Random.Range(-bulletDamage*0.1f, bulletDamage*0.1f);
 
             // Crit chance
             bool hasCrit = false;

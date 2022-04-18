@@ -15,16 +15,16 @@ MonoBehaviour:
   weaponName: Shotgun
   weaponType: 1
   weaponSprite: {fileID: 21300000, guid: 5497ab5e132bfb746b2c9453b2133847, type: 3}
-  damage: 5
-  range: 10
+  damage: 4
+  range: 6
   fireRate: 100
   reloadTime: 1
-  clipSize: 12
+  clipSize: 10
   critChance: 5
   critMultiplier: 2
   projectile: {fileID: 8729183742269874082, guid: 396a533e1c07c22499e886ebac8d312c, type: 3}
   projVelocity: 10
-  explosionRadius: 0
-  sprayAmount: 0.025
+  sprayAmount: 0.1
   shottyProjCount: 8
-  shottyScatterTightness: 25
+  shottyScatterTightness: 30
+  explosionRadius: 0

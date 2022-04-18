@@ -9,12 +9,12 @@ public class Rocket : MonoBehaviour, IProjectile
     public bool showExplosionRadius = false;
 
     private Vector2 startingPos;
-    public float range = 10f;
+    private float range;
 
-    public int damage = 10;
-    public int critChance = 5;
-    public int critMultiplier;
-    public float explosionRadius; //2.5 is default to fit with the particle system, need to figure that system out
+    private float damage;
+    private int critChance;
+    private int critMultiplier;
+    private float explosionRadius; //2.5 is default to fit with the particle system, need to figure that system out
 
     public GameObject floatingDamageText;
     private ParticleSystem explosionParticles;
@@ -55,7 +55,7 @@ public class Rocket : MonoBehaviour, IProjectile
 
     public void SetCritMultiplier(int multiplier) => critMultiplier = multiplier + stats.critMultiplierAdditive;
 
-    public void SetDamage(int dmg) => damage = dmg + Mathf.RoundToInt(stats.damageAdditive);
+    public void SetDamage(float dmg) => damage = (dmg + (stats.damageAdditive * dmg)) * stats.damageMultiplier;
 
     public void SetExplosionRadius(float radius) => explosionRadius = radius;
 
@@ -87,11 +87,11 @@ public class Rocket : MonoBehaviour, IProjectile
 
 
         //Explosion radius checking for all enemies and applying damage
-        RaycastHit2D[] explosionCircleCast = Physics2D.CircleCastAll(transform.position, explosionRadius, Vector2.up);
+        RaycastHit2D[] explosionCircleCast = Physics2D.CircleCastAll(transform.position, explosionRadius, Vector2.zero);
         if(explosionCircleCast != null)
         {
             // Vary the damage a little
-            damage += Random.Range(-2, 2);
+            damage += Random.Range(-damage*0.1f, damage*0.1f);
 
             // Crit chance for the whole explosion
             bool hasCrit = false;

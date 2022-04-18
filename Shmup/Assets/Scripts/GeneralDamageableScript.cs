@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class GeneralDamageableScript : MonoBehaviour, IDamageable
 {
-    [Range(0, 1000)] public int health = 100;
+    [Range(0, 10000)] public float health = 100;
 
     public void Death()
     {
         if (health <= 0)
-            Destroy(gameObject, 1f);
+            Destroy(gameObject, 0.5f);
     }
 
-    public void ReceiveDamage(int amount)
+    public void ReceiveDamage(float amount)
     {
         health -= amount;
         Death(); // Checks to see if the unit has "died"

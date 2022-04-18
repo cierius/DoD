@@ -29,7 +29,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     [Space(10)]
     public float speed = 17.5f;
     public bool invuln = false;
-    public int health = 100;
+    public float health = 100;
     public int damage = 2;
 
     [Header("----- Pathfinding Properties -----")]
@@ -87,11 +87,6 @@ public class EnemyAI : MonoBehaviour, IDamageable
         }
     }
 
-
-    private void OnDestroy()
-    {
-        objectiveManager.Elimination();
-    }
 
     void FixedUpdate()
     {
@@ -293,7 +288,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     }
 
 
-    public void ReceiveDamage(int amount)
+    public void ReceiveDamage(float amount)
     {
         health -= amount;
     }
@@ -315,6 +310,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     public void Death()
     {
         DropAmmoBoxChance(10);
+        objectiveManager.Elimination();
         Destroy(gameObject);
     }
 }

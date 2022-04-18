@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class ItemInventory : MonoBehaviour
 {
-    public static ItemInventory inventory;
+    public static ItemInventory Instance = null; // Not quite a singleton, I want the gameobject to be destroyable though
 
     private GameObject inventoryHUD;
 
-    public List<GameObject> items;
+    public List<GameObject> items = new List<GameObject>();
 
 
     private void Awake()
     {
-        inventory = this; // Singleton method 
+        Instance = this;
+
         inventoryHUD = GameObject.Find("HUD/Inventory_HUD");
     }
 
@@ -34,6 +35,28 @@ public class ItemInventory : MonoBehaviour
         {
             item.transform.position = new Vector3((inventoryHUD.transform.position.x - inventoryHUD.transform.localScale.x/2) + 0.25f + 0.5f*xIndex, 
                                                     (inventoryHUD.transform.position.y + inventoryHUD.transform.localScale.y/2) - 0.75f - 0.5f*yIndex, inventoryHUD.transform.position.z - 1);
+            item.GetComponentInChildren<MeshRenderer>().enabled = false;
+            xIndex++;
+            if ((xIndex % 6) == 0) // Every 6 items the row will be incremented
+            {
+                yIndex++;
+                xIndex = 0;
+            }
+        }
+    }
+
+
+    public void AddItems(List<GameObject> itemsToAdd)
+    {
+        var xIndex = 0;
+        var yIndex = 0;
+        foreach (GameObject item in itemsToAdd)
+        {
+            item.transform.parent = inventoryHUD.transform;
+            items.Add(item);
+
+            item.transform.position = new Vector3((inventoryHUD.transform.position.x - inventoryHUD.transform.localScale.x / 2) + 0.25f + 0.5f * xIndex,
+                                                    (inventoryHUD.transform.position.y + inventoryHUD.transform.localScale.y / 2) - 0.75f - 0.5f * yIndex, inventoryHUD.transform.position.z - 1);
             item.GetComponentInChildren<MeshRenderer>().enabled = false;
             xIndex++;
             if ((xIndex % 6) == 0) // Every 6 items the row will be incremented

@@ -23,6 +23,8 @@ public class CharController : MonoBehaviour
     private float rollCooldown = 3f; // Time in seconds
     private float rollCooldownTimer;
 
+    [SerializeField] private bool invuln = false;
+
     // Shooting variables
     private bool isFiring = false;
     private Vector2 fireDir = Vector2.up;
@@ -46,8 +48,8 @@ public class CharController : MonoBehaviour
     private SpriteRenderer weaponHUD;
 
 
-    //Roll HUD
-    [SerializeField] private SpriteRenderer rollHUDIcon;
+    //Roll HUD ref
+    private RollHUD rollHUD;
 
     
 
@@ -73,15 +75,18 @@ public class CharController : MonoBehaviour
         healthBar = GameObject.Find("HUD/Canvas/HealthBar").GetComponent<Slider>();
         laserLineRenderer = laser.GetComponent<LineRenderer>();
         shootingSlider = GameObject.Find("AmmoAndShooting_Canvas/ShootingSlider").GetComponent<Slider>();
-
+        stats = GetComponent<CharStats>();
+        rollHUD = GameObject.Find("HUD/Roll_HUD").GetComponent<RollHUD>();
     }
 
     private void Start()
     {
-        if(!Singleton.Instance.GetFirstLoad())
+        if (!Singleton.Instance.GetFirstLoad())
+        {
             Singleton.Instance.LoadPlayerStats();
+            Singleton.Instance.LoadInventory();
+        }
 
-        stats = GetComponent<CharStats>();
         stats.healthTotal = stats.healthBase + stats.healthAdditive;
 
         StartCoroutine(stats.HealthRegen()); // Starts the health regen loop that continues until player dies
@@ -104,8 +109,7 @@ public class CharController : MonoBehaviour
 
         if(rollOnCooldown)
         {
-            StartCoroutine(RollHUDFade());
-            //rollHUDIcon.color = new Color(rollHUDIcon.color.r, rollHUDIcon.color.g, rollHUDIcon.color.b, Mathf.Lerp(rollHUDIcon.color.a, 255f, rollCooldownTimer / rollCooldown * Time.deltaTime));
+            rollHUD.CooldownStart(rollCooldown);
             rollCooldownTimer += Time.deltaTime;
             if(rollCooldownTimer >= rollCooldown)
             {
@@ -156,7 +160,7 @@ public class CharController : MonoBehaviour
                 StopCoroutine(ShootingSliderLerp());
                 StartCoroutine(ShootingSliderLerp());
             }
-            else if(stats.ammoInMag[stats.currWeaponIndex] == 0)
+            else if(stats.ammoInMag[stats.currWeaponIndex] == 0 && !isReloading)
             {
                 Reload();
             }
@@ -304,25 +308,15 @@ public class CharController : MonoBehaviour
             rollOnCooldown = true;
             
             rb.AddForce(lastMoveDir * rollAmount, ForceMode2D.Impulse);
+            StartCoroutine(RollIFrame(stats.iFrameDur));
         }
     }
 
-
-    IEnumerator RollHUDFade() // Coroutine Function for fading in the rollHUDIcon based on its cooldown
+    IEnumerator RollIFrame(float dur)
     {
-        rollHUDIcon.color = new Color(rollHUDIcon.color.r, rollHUDIcon.color.g, rollHUDIcon.color.b, 0f);
-
-        Color c = rollHUDIcon.color;
-
-        while (rollOnCooldown)
-        {
-            c.a = 1f * (rollCooldownTimer / rollCooldown); // Transitions between 0f and 1f
-            rollHUDIcon.color = c;
-            yield return null;
-        }
-
-        c.a = 1f; // Since the transition doesn't fully get to 1f make it equal 1f
-        rollHUDIcon.color = c;
+        invuln = true;
+        yield return new WaitForSeconds(dur);
+        invuln = false;
     }
 
 
@@ -399,7 +393,7 @@ public class CharController : MonoBehaviour
     }
 
 
-    public void Reload(InputAction.CallbackContext context)
+    public void Reload(InputAction.CallbackContext context) // PlayerInput function
     {
         if(context.performed)
         {
@@ -411,7 +405,7 @@ public class CharController : MonoBehaviour
         }
     }
 
-    private void Reload()
+    private void Reload() // Callable function
     {
         if (!isReloading)
         {
@@ -423,7 +417,8 @@ public class CharController : MonoBehaviour
 
     public void ReceiveDamage(float damage)
     {
-        stats.healthCurrent -= damage - damage*(stats.damageReductionPercentage/100f);
+        if(!invuln)
+            stats.healthCurrent -= damage - damage*(stats.damageReductionPercentage/100f);
         //print("Without: " + damage + " With defense: " + (damage - damage * (stats.damageReductionPercentage / 100f)));
         healthBar.value = stats.healthCurrent;
     }

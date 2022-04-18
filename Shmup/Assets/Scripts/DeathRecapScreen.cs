@@ -13,14 +13,12 @@ public class DeathRecapScreen : MonoBehaviour
 
     public void OnRestart()
     {
-        print("Loading Level_1");
-        SceneManager.LoadScene(1);
+        Singleton.Instance.ResetLevel();
     }
 
 
     public void OnMainMenu()
     {
-        print("Loading Main Menu");
-        SceneManager.LoadScene("Menu");
+        Singleton.Instance.ReturnToMenu();
     }
 }

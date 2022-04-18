@@ -4,14 +4,8 @@ using UnityEngine;
 
 public class SpawnerRune : MonoBehaviour, IDamageable
 {
-    private int maxHealth;
-    [Range(10, 1000)] [SerializeField] private int health = 50; // Current health of rune
+    [Range(10, 1000)] [SerializeField] private float health = 50; // Current health of rune
     //[Range(0, 10)] [SerializeField] private int healthRegen = 1; // Regen per second
-
-    void Awake()
-    {
-        maxHealth = health;
-    }
 
 
     void Update()
@@ -30,7 +24,7 @@ public class SpawnerRune : MonoBehaviour, IDamageable
         Destroy(gameObject);
     }
 
-    public void ReceiveDamage(int amount)
+    public void ReceiveDamage(float amount)
     {
         health -= amount;
     }

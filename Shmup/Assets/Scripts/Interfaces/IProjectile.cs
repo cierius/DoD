@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IProjectile
 {
-    public void SetDamage(int damage);
+    public void SetDamage(float damage);
 
     public void SetRange(float range);
 

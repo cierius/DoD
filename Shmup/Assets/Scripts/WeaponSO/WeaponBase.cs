@@ -17,40 +17,47 @@ public class WeaponBase : ScriptableObject
     {
         Singleshot,
         Multishot,
-        Launcher
+        Launcher,
+        Melee
     }
 
-    [Header("Weapon Info")]
+    [Header("--- Weapon Info ---")]
+    [Space(10)]
     public string weaponName;
     public WeaponType weaponType;
     public Sprite weaponSprite;
 
 
-    [Header("General Weapon Attributes")]
+    [Header("--- General Weapon Attributes ---")]
+    [Space(10)]
     public int damage;
     public int range = 10;
     [Range(0, 300)] public int fireRate; //shots per minute
     [Range(0f, 5f)] public float reloadTime; // time in sec
     [Range(1, 36)] public int clipSize;
-
-
-    [Header("Crit")]
     [Range(0, 100)] public int critChance = 5; // Base is 5%
     public int critMultiplier = 2; // Base is 2x
 
 
-    [Header("Projectile Attributes")]
+    [Header("--- Projectile Attributes ---")]
+    [Space(10)]
     private GameObject projectileInstance;
     public GameObject projectile; // Whatever will be instantiated when firing
     public float projVelocity;
 
 
-    [Header("Special Attributes")]
-    public float explosionRadius;
-    private Vector2 spray;
+    [Header("--- Multi-projectile ---")]
+    [Space(10)]
     [Range(0f, 0.5f)] public float sprayAmount;
     [Range(5, 20)] public int shottyProjCount;
     [Range(10, 50)] public float shottyScatterTightness;
+    private Vector2 spray;
+
+    [Header("--- Special Attributes ---")]
+    [Space(10)]
+    [Range(0, 5)] public float explosionRadius;
+    
+    
 
 
     public float Fire(Vector2 dir, Transform trans)

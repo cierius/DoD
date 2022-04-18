@@ -25,18 +25,18 @@ public class FloatDamageText : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void SetText(int value, bool hasCrit)
+    public void SetText(float value, bool hasCrit)
     {
         if(hasCrit)
         {
             GetComponent<TextMesh>().color = new Color(255, 0, 90);
-            GetComponent<TextMesh>().text = value.ToString() + "!";
+            GetComponent<TextMesh>().text = Mathf.Ceil(value).ToString() + "!";
             rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
             timer = 0;
         }
         else
         {
-            GetComponent<TextMesh>().text = value.ToString();
+            GetComponent<TextMesh>().text = Mathf.Ceil(value).ToString();
             rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
             timer = 0;
         }     

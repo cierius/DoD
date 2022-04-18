@@ -29,6 +29,8 @@ public class ItemBase : MonoBehaviour
     public string itemName = "Item Name";
     public ItemType itemType = ItemType.Passive;
     public ItemRarity itemRarity;
+    [Tooltip("Unique items cannot be stacked - Only show up in the item pool once.")]
+    public bool unique;
     public Sprite itemSprite;
     [TextArea] public string itemDescription = "Item Description";
 
@@ -44,8 +46,8 @@ public class ItemBase : MonoBehaviour
     [Tooltip("Percentage damage reduced")]
     [Range(0, 25)] public float reduceDamagePercentage = 0f;
 
-    [Tooltip("Flat Damage Boost")]
-    [Range(0, 10)] public int damageAdditive = 0;
+    [Tooltip("Percentage Damage Boost")]
+    [Range(0, 100)] public int damageAdditive = 0;
     public int critChanceAdditive = 0;
     public int critDamageX = 0;
     public float fireRatePercentage = 0;
@@ -56,12 +58,9 @@ public class ItemBase : MonoBehaviour
 
     [Header("----- Weapon Effect Properties -----")] // Changes weapon effect / function
     [Space(10)] // Space above
-
-    public float burnDOT = 0f; // Damage per second
-    public float burnDuration = 0f; 
-
+    public float burnDOT = 0f; // Damage per second 
     public float slowPercentage = 0f; // Slow percent
-    public float slowDuration = 0f;
+    public float effectDuration = 0f;
 
 
     [Header("----- On Damage Taken Properties -----")] // Whenever player takes damage these will have an effect
@@ -87,7 +86,7 @@ public class ItemBase : MonoBehaviour
                 stats.healthAdditive += healthIncrease;
                 stats.healthRegen += regenAmount;
                 stats.damageReductionPercentage += reduceDamagePercentage;
-                stats.damageAdditive += damageAdditive;
+                stats.damageAdditive += damageAdditive/100f; // Percentage
                 stats.critMultiplierAdditive += critDamageX;
                 stats.critChanceAdditive += critChanceAdditive;
                 stats.fireRatePercentage += fireRatePercentage/100f;
@@ -111,7 +110,7 @@ public class ItemBase : MonoBehaviour
     {
         if(coll.transform.tag == "Player")
         {
-            ItemInventory.inventory.OnItemPickup(gameObject);
+            ItemInventory.Instance.OnItemPickup(gameObject);
         }
     }
 }

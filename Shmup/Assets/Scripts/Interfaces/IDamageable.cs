@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IDamageable
 {
-    public void ReceiveDamage(int amount);
+    public void ReceiveDamage(float amount);
 
     public void Death();
 }

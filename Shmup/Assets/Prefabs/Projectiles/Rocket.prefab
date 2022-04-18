@@ -4998,12 +4998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2366fd5f881c7684392df9e20a2b294a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showExplosionRadius: 0
-  range: 20
-  damage: 10
-  critChance: 5
-  critMultiplier: 0
-  explosionRadius: 2.5
+  showExplosionRadius: 1
   floatingDamageText: {fileID: 3303976486947650803, guid: 8acf5dbeda261f6439bf3b458497918f, type: 3}
 --- !u!1 &3651821508710000101
 GameObject:

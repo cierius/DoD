@@ -13,6 +13,7 @@ public class CharStats : MonoBehaviour
     public bool isMoveable = true;
     public float speedBase = 15f;
     public float speedAdditive = 0f; // Used for speed boosts / bonus speed upgrades
+    public float iFrameDur = 0.1f;
 
     [Header("Health & Defense")]
     public float healthBase = 100; // Max health without any additives
@@ -23,7 +24,8 @@ public class CharStats : MonoBehaviour
     public float damageReductionPercentage = 0f;
 
     [Header("Weapon Modifiers")]
-    public float damageAdditive = 0f;
+    public float damageAdditive = 0f; // Percentage damage added
+    public float damageMultiplier = 1f; // Magnitudes of damage
     public float fireRatePercentage = 0;
     public float reloadSpeedPercentage = 0f;
     public int critMultiplierAdditive = 0;

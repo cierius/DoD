@@ -27,10 +27,9 @@ public class Singleton : MonoBehaviour
     public float musicVol = 1.0f; // Default is 1.0f
     public float fxVol = 1.0f; // Default is 1.0f
 
-
-    public List<GameObject> playerInventory = new List<GameObject>();
+    // Persistent 
     private CharStatsContainer persistentStats = new CharStatsContainer();
-
+    [SerializeField] private List<GameObject> persistentInventory = new List<GameObject>();
 
     private void Awake()
     {
@@ -126,6 +125,7 @@ public class Singleton : MonoBehaviour
     {
         print("Switching To Next Level");
         SavePlayerStats();
+        SaveInventory();
         var currLevel = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currLevel.buildIndex + 1, LoadSceneMode.Single);
     }
@@ -156,6 +156,7 @@ public class Singleton : MonoBehaviour
         persistentStats.firstLoad = false;
     }
 
+
     public void LoadPlayerStats() // Loads all the CharStats variables to keep the stats persistent
     {
         var charStats = GameObject.FindWithTag("Player").GetComponent<CharStats>(); 
@@ -179,19 +180,29 @@ public class Singleton : MonoBehaviour
         charStats.currWeaponIndex = persistentStats.currWeaponIndex;
     }
 
-    public void SavePlayerInventory()
-    {
-
-    }
-
-    public void LoadPlayerInventory()
-    {
-
-    }
 
     public bool GetFirstLoad()
     {
         return persistentStats.firstLoad;
+    }
+
+
+    public void SaveInventory()
+    {
+        persistentInventory.AddRange(ItemInventory.Instance.items);
+
+        foreach(var item in persistentInventory)
+        {
+            item.transform.parent = transform;
+        }
+    }
+
+    public void LoadInventory()
+    {
+        if(persistentInventory.Count > 0)
+            ItemInventory.Instance.AddItems(persistentInventory);
+        
+        persistentInventory.Clear();
     }
 }
 

@@ -1,0 +1,45 @@
+v0.0 - v0.2:
+Don't really remember as I wasn't keeping track of features / game updates.
+
+===================================================================================================
+
+v0.3:
+FIXES
+FIX: Rocket explosion radius & collider was botched causing damage all around the map lol
+
+ADDS
+ADD: New roll icon - better "ready to use" visibility
+ADD: 2 Item icons: hiking boots, gun powder
+ADD: iFrame to the roll - currently is .1sec long right when you begin the roll
+ADD: Rooms 2 and 3 - items and stats are persistent
+
+NERFS
+NERF: Rocket range reduced by 25%
+NERF: Shotgun spray increased, range reduced by 25%, damage reduced by 1 per bullet, and clipsize by 2
+NERF: Green Ox - removed crit multipler +1 - crit multiplier is too strong
+
+BUFFS
+BUFF: Regenerative Seedling now gives +25 health along with it's +1 regen
+
+CHANGES
+CHANGE: Hiking boots is now a unique item (player can only find a single copy of each unique item)
+CHANGE: Blackpowder's +3 damage is now +10% damage - percentage damage is easier to scale with
+CHANGE: Projectile damage variation has changed; the code used to vary the damage by a flat -2, 2 
+	but now it varies it by 10% of the total damage
+
+===================================================================================================
+
+v0.4
+FIXES
+
+
+ADDS
+
+
+NERFS
+
+
+BUFFS
+
+
+CHANGES
