@@ -49,9 +49,13 @@ MonoBehaviour:
   elimsRequired: 5
   elimsCurrent: 0
   weaponUsed: 1
+  damageRequired: 0
+  damageDealt: 0
   captureTarget: {fileID: 0}
   holdTime: 0
   holdTimeCurr: 0
+  targetType: 0
   target: {fileID: 0}
   survivalTime: 0
   survivalTimeCurr: 0
+  objectToDestroy: {fileID: 0}

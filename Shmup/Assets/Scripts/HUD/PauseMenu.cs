@@ -62,7 +62,7 @@ public class PauseMenu : MonoBehaviour
     {
         print("Resetting run");
         Time.timeScale = 1;
-        Singleton.Instance.ResetLevel();
+        Singleton.Instance.ResetRun();
     }
 
     public void OnExitRun()

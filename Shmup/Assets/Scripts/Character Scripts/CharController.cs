@@ -271,7 +271,7 @@ public class CharController : MonoBehaviour
     {
         if(context.performed == true)
         {
-            Singleton.Instance.ResetLevel();
+            Singleton.Instance.ResetRun();
         }
     }
 
@@ -397,7 +397,7 @@ public class CharController : MonoBehaviour
     {
         if(context.performed)
         {
-            if (!isReloading) // Don't wanna double down on reloading
+            if (!isReloading && stats.ammoInInventory[stats.currWeaponIndex] > 0) // Cant reload if you already are AND makes sure you arent locked out of shooting if you dont have any ammo
             {
                 isReloading = true;
                 StartCoroutine(stats.Reload(stats.weaponEquipped.reloadTime));
@@ -449,4 +449,7 @@ public class CharController : MonoBehaviour
         var d = Instantiate(deathRecap, transform);
         d.transform.localPosition = Vector2.zero;
     }
+
+
+    public Vector2 GetFireDir() => fireDir;
 }

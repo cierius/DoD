@@ -9,9 +9,11 @@ public class Objective : MonoBehaviour
     {
         Null,
         Elimination,
+        DamageDealt,
         CaptureAndHold,
         FindTarget,
-        Survival
+        Survival,
+        SearchAndDestroy
     }
     public enum WeaponType
     {
@@ -28,15 +30,22 @@ public class Objective : MonoBehaviour
 
     //Elim data
     [Header("Elimination")]
-    public int elimsRequired;
+    [Space(10)]
+    [Range(0, 50)] public int elimsRequired;
     public int elimsCurrent;
     public WeaponType weaponUsed;
 
+    //Damage dealt objective may also use the variable above
+    [Header("Damage Dealt")]
+    [Space(10)]
+    [Range(0, 1000)] public int damageRequired;
+    public int damageDealt;
 
     //Capture and Hold data
     [Header("Capture and Hold")]
+    [Space(10)]
     public Transform captureTarget;
-    public int holdTime;
+    [Range(0, 60)] public int holdTime;
     public int holdTimeCurr;
 
 
@@ -45,17 +54,26 @@ public class Objective : MonoBehaviour
     {
         Car,
         House,
-        Person
+        Misc
     }
     [Header("Find Target")]
+    [Space(10)]
     public TargetType targetType;
     public Transform target;
 
 
     //Survival Data
     [Header("Survival")]
-    public int survivalTime;
+    [Space(10)]
+    [Range(0, 300)] public int survivalTime;
     public float survivalTimeCurr;
+
+
+    //SnD Data
+    [Header("Search and Destroy")]
+    [Space(10)]
+    public bool multipleObjects = false;
+    public List<GameObject> objectsToDestroy;
 
 
     private void Update()
@@ -67,8 +85,17 @@ public class Objective : MonoBehaviour
 
     private void Awake()
     {
-        if (targetType == TargetType.Car)
-            target = GameObject.FindGameObjectWithTag("CarTarget").GetComponent<Transform>();
+        // If find target objective
+        List<GameObject> cars = new List<GameObject>();
+        cars.AddRange(GameObject.FindGameObjectsWithTag("CarTarget"));
+
+        if (targetType == TargetType.Car) // Need to put a circle around the target or something
+        {
+            target = cars[Random.Range(0, cars.Count)].GetComponent<Transform>();
+
+            print(target);
+        }
+            
 
         RandomifyElimObjectiveReqs();
     }

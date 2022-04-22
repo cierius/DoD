@@ -144,6 +144,7 @@ MonoBehaviour:
   itemName: Green Ox
   itemType: 0
   itemRarity: 1
+  unique: 0
   itemSprite: {fileID: 0}
   itemDescription: A zippy drink that'll have you sharp shootin' in no time!
   healthIncrease: 0
@@ -155,9 +156,8 @@ MonoBehaviour:
   fireRatePercentage: 5
   speedBoostPercentage: 0
   burnDOT: 0
-  burnDuration: 0
   slowPercentage: 0
-  slowDuration: 0
+  effectDuration: 0
   healthBack: 0
 --- !u!212 &7832432045115663509
 SpriteRenderer:

@@ -74,6 +74,9 @@ public class ItemBase : MonoBehaviour
     {
         stats = GameObject.FindWithTag("Player").GetComponent<CharStats>();
         GetComponentInChildren<TextMesh>().text = itemName;
+
+        if(itemSprite != null) // Assign the sprite
+            GetComponent<SpriteRenderer>().sprite = itemSprite;
     }
 
 

@@ -25,7 +25,11 @@ public class ItemPool : MonoBehaviour
 
     public GameObject RandomItem() // Returns a random item from the pool
     {
-        return pool[Random.Range(0, pool.Count)];
+        var randItem = pool[Random.Range(0, pool.Count)];
+        if(randItem.GetComponent<ItemBase>().unique)
+            pool.Remove(randItem);
+
+        return randItem;
     }
 
     public void RemoveItem(GameObject item) // Removes an item from the pool

@@ -30,11 +30,13 @@ public class WeaponBase : ScriptableObject
 
     [Header("--- General Weapon Attributes ---")]
     [Space(10)]
-    public int damage;
-    public int range = 10;
+    [Range(1, 100)] public float damage = 1;
+    [Range(1, 20)] public int range;
     [Range(0, 300)] public int fireRate; //shots per minute
     [Range(0f, 5f)] public float reloadTime; // time in sec
-    [Range(1, 36)] public int clipSize;
+    [Range(0, 36)] public int clipSize;
+    [Range(0, 999)] public int startingAmmo;
+    [Range(0, 999)] public int maxAmmo;
     [Range(0, 100)] public int critChance = 5; // Base is 5%
     public int critMultiplier = 2; // Base is 2x
 
@@ -52,6 +54,10 @@ public class WeaponBase : ScriptableObject
     [Range(5, 20)] public int shottyProjCount;
     [Range(10, 50)] public float shottyScatterTightness;
     private Vector2 spray;
+
+    [Header("--- Melee Attributes ---")]
+    [Space(10)]
+    [Range(0, 360)] public int attackRadius = 45; // Degrees
 
     [Header("--- Special Attributes ---")]
     [Space(10)]
@@ -111,9 +117,26 @@ public class WeaponBase : ScriptableObject
                 projectileInstance.GetComponent<Rocket>().SetExplosionRadius(explosionRadius);
                 projectileInstance.GetComponent<Rigidbody2D>().AddRelativeForce((dir + spray) * projVelocity, ForceMode2D.Impulse);
                 break;
+
+            case WeaponType.Melee:
+                break;
         }
 
 
         return 0f;
+    }
+
+    private List<Collider2D> MeleeAttack(int radius, Vector2 dir, Transform trans)
+    {
+        List<Collider2D> coll = new List<Collider2D>();
+
+        for(int i = -radius/2; i < radius/2; i++) // Casts a ray every degree of the attack
+        {
+            var ray = Physics2D.Linecast(trans.position, dir);
+            if(ray.collider != null)
+                coll.Add(ray.collider);
+        }
+
+        return coll;
     }
 }

@@ -15,16 +15,19 @@ MonoBehaviour:
   weaponName: Rifle
   weaponType: 0
   weaponSprite: {fileID: 21300000, guid: 09111560f95b02d479e72b6e31c334b4, type: 3}
-  damage: 10
+  damage: 11
   range: 20
   fireRate: 300
   reloadTime: 1
-  clipSize: 36
+  clipSize: 30
+  startingAmmo: 300
+  maxAmmo: 600
   critChance: 5
   critMultiplier: 2
   projectile: {fileID: 8729183742269874082, guid: 396a533e1c07c22499e886ebac8d312c, type: 3}
-  projVelocity: 10
-  explosionRadius: 0
+  projVelocity: 15
   sprayAmount: 0.1
   shottyProjCount: 0
   shottyScatterTightness: 0
+  attackRadius: 45
+  explosionRadius: 0

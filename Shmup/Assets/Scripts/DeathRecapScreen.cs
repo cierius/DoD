@@ -6,18 +6,18 @@ using UnityEngine.SceneManagement;
 public class DeathRecapScreen : MonoBehaviour
 {
 
-    public void Awake()
+    public void Awake() // Finds the main camera and sets the canvas size to it
     {
         GetComponent<Canvas>().worldCamera = Camera.main;
     }
 
-    public void OnRestart()
+    public void OnRestart() // Restart Run button
     {
-        Singleton.Instance.ResetLevel();
+        Singleton.Instance.ResetRun();
     }
 
 
-    public void OnMainMenu()
+    public void OnMainMenu() // Main menu button
     {
         Singleton.Instance.ReturnToMenu();
     }

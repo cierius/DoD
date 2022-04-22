@@ -20,11 +20,14 @@ MonoBehaviour:
   fireRate: 100
   reloadTime: 1
   clipSize: 10
+  startingAmmo: 50
+  maxAmmo: 100
   critChance: 5
   critMultiplier: 2
   projectile: {fileID: 8729183742269874082, guid: 396a533e1c07c22499e886ebac8d312c, type: 3}
-  projVelocity: 10
+  projVelocity: 13
   sprayAmount: 0.1
   shottyProjCount: 8
   shottyScatterTightness: 30
+  attackRadius: 45
   explosionRadius: 0

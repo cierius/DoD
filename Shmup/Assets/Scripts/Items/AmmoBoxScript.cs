@@ -28,14 +28,14 @@ public class AmmoBoxScript : MonoBehaviour
 
     private void GiveAmmo(int amount)
     {
-        for(int i = 0; i < stats.magsInInventory.Length; i++)
+        for(int i = 0; i < stats.ammoInInventory.Length; i++)
         {
-            if (stats.magsInInventory[i] < stats.magCarryMax[i])
+            if (stats.ammoInInventory[i] < stats.ammoCarryMax[i])
             {
-                stats.magsInInventory[i] += amount;
+                stats.ammoInInventory[i] += amount * stats.weapons[i].clipSize;
 
-                if(stats.magsInInventory[i] > stats.magCarryMax[i]) // Makes sure the player doesn't collect more than the max carry amount for ammo per weapon
-                    stats.magsInInventory[i] = stats.magCarryMax[i];
+                if(stats.ammoInInventory[i] > stats.ammoCarryMax[i]) // Makes sure the player doesn't collect more than the max carry amount for ammo per weapon
+                    stats.ammoInInventory[i] = stats.ammoCarryMax[i];
             }
         }
 

@@ -49,6 +49,7 @@ MonoBehaviour:
   itemName: Baseball Helmet
   itemType: 0
   itemRarity: 0
+  unique: 0
   itemSprite: {fileID: 0}
   itemDescription: Item Description
   healthIncrease: 0
@@ -60,9 +61,8 @@ MonoBehaviour:
   fireRatePercentage: 0
   speedBoostPercentage: 0
   burnDOT: 0
-  burnDuration: 0
   slowPercentage: 0
-  slowDuration: 0
+  effectDuration: 0
   healthBack: 0
 --- !u!212 &667404550860392668
 SpriteRenderer:

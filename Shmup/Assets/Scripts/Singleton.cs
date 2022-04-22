@@ -108,16 +108,17 @@ public class Singleton : MonoBehaviour
     }
 
 
-    public void ResetLevel()
+    public void ResetRun()
     {
-        print("Resetting Level");
-        var currLevel = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(currLevel.buildIndex, LoadSceneMode.Single);
+        print("Resetting Run");
+        persistentStats.firstLoad = true;
+        SceneManager.LoadScene(1, LoadSceneMode.Single);
     }
 
     public void ReturnToMenu()
     {
         print("Returning To Menu");
+        persistentStats.firstLoad = true;
         SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
 
@@ -147,8 +148,8 @@ public class Singleton : MonoBehaviour
 
         persistentStats.weapons = charStats.weapons;
         persistentStats.ammoInMag = charStats.ammoInMag;
-        persistentStats.magsInInventory = charStats.magsInInventory;
-        persistentStats.magCarryMax = charStats.magCarryMax;
+        persistentStats.ammoInInventory = charStats.ammoInInventory;
+        persistentStats.ammoCarryMax = charStats.ammoCarryMax;
 
         persistentStats.weaponEquipped = charStats.weaponEquipped;
         persistentStats.currWeaponIndex = charStats.currWeaponIndex;
@@ -173,8 +174,8 @@ public class Singleton : MonoBehaviour
 
         charStats.weapons = persistentStats.weapons;
         charStats.ammoInMag = persistentStats.ammoInMag;
-        charStats.magsInInventory = persistentStats.magsInInventory;
-        charStats.magCarryMax = persistentStats.magCarryMax;
+        charStats.ammoInInventory = persistentStats.ammoInInventory;
+        charStats.ammoCarryMax = persistentStats.ammoCarryMax;
 
         charStats.weaponEquipped = persistentStats.weaponEquipped;
         charStats.currWeaponIndex = persistentStats.currWeaponIndex;
@@ -224,8 +225,8 @@ class CharStatsContainer
     public List<WeaponBase> weapons = new List<WeaponBase>();
     public float[] weaponLastFired = new float[4] { 0f, 0f, 0f, 0f };
     public int[] ammoInMag = new int[] { 0, 0, 0, 0 }; 
-    public int[] magsInInventory = new int[] { 0, 0, 0, 0 };
-    public int[] magCarryMax = new int[] { 0, 0, 0, 0 };
+    public int[] ammoInInventory = new int[] { 0, 0, 0, 0 };
+    public int[] ammoCarryMax = new int[] { 0, 0, 0, 0 };
 
     public WeaponBase weaponEquipped;
     public int currWeaponIndex = 0; // 0 is rifle

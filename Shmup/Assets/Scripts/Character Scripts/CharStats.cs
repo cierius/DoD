@@ -35,8 +35,8 @@ public class CharStats : MonoBehaviour
     public List<WeaponBase> weapons = new List<WeaponBase>();
     public float[] weaponLastFired = new float[4] {0f, 0f, 0f, 0f};
     public int[] ammoInMag = new int[] { 0, 0, 0, 0 }; // 4 weapons - 4 mags 
-    public int[] magsInInventory = new int[] { 0, 0, 0, 0 };
-    public int[] magCarryMax = new int[] { 0, 0, 0, 0 };
+    public int[] ammoInInventory = new int[] { 0, 0, 0, 0 };
+    public int[] ammoCarryMax = new int[] { 0, 0, 0, 0 };
 
     public WeaponBase weaponEquipped;
     public int currWeaponIndex = 0; // 0 is rifle
@@ -59,7 +59,8 @@ public class CharStats : MonoBehaviour
             for (int i = 0; i < weapons.Count; i++)
             {
                 ammoInMag[i] = weapons[i].clipSize;
-                magsInInventory[i] = magCarryMax[i];
+                ammoInInventory[i] = weapons[i].startingAmmo;
+                ammoCarryMax[i] = weapons[i].maxAmmo;
             }
 
         UpdateAmmoHUD();
@@ -75,15 +76,17 @@ public class CharStats : MonoBehaviour
 
     public IEnumerator Reload(float duration)
     {
-        if (magsInInventory[currWeaponIndex] > 0 && ammoInMag[currWeaponIndex] < weaponEquipped.clipSize) // Can reload when less than max mag size and has mags in inventory
+        if (ammoInInventory[currWeaponIndex] > 0 && ammoInMag[currWeaponIndex] < weaponEquipped.clipSize) // Can reload if a bullet has been fired and has ammo in inventory
         {
             StartCoroutine(LerpReloadSlider(duration));
             yield return new WaitForSeconds(duration);
 
             if (charController.isReloading) // Checks to make sure that the player hasn't switched weapons
             {
+                var ammoRemainder = weaponEquipped.clipSize - ammoInMag[currWeaponIndex]; // if the mag isn't empty it doesn't take a whole mag from inventory
+
                 ammoInMag[currWeaponIndex] = weaponEquipped.clipSize;
-                magsInInventory[currWeaponIndex] -= 1;
+                ammoInInventory[currWeaponIndex] -= ammoRemainder;
 
                 charController.isReloading = false;
             }
@@ -123,7 +126,7 @@ public class CharStats : MonoBehaviour
     public void UpdateAmmoHUD()
     {
         ammoHud[0].text = ammoInMag[currWeaponIndex].ToString();
-        ammoHud[1].text = magsInInventory[currWeaponIndex].ToString();
+        ammoHud[1].text = ammoInInventory[currWeaponIndex].ToString();
 
         reloadingSlider.maxValue = weaponEquipped.clipSize;
         reloadingSlider.value = ammoInMag[currWeaponIndex];
