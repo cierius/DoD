@@ -60,6 +60,7 @@ public class Objective : MonoBehaviour
     [Space(10)]
     public TargetType targetType;
     public Transform target;
+    [SerializeField] private GameObject ring;
 
 
     //Survival Data
@@ -86,14 +87,18 @@ public class Objective : MonoBehaviour
     private void Awake()
     {
         // If find target objective
-        List<GameObject> cars = new List<GameObject>();
-        cars.AddRange(GameObject.FindGameObjectsWithTag("CarTarget"));
-
-        if (targetType == TargetType.Car) // Need to put a circle around the target or something
+        if (objective == ObjectiveType.FindTarget)
         {
-            target = cars[Random.Range(0, cars.Count)].GetComponent<Transform>();
+            List<GameObject> cars = new List<GameObject>();
+            cars.AddRange(GameObject.FindGameObjectsWithTag("CarTarget"));
 
-            print(target);
+            if (targetType == TargetType.Car) // Need to put a circle around the target or something
+            {
+                target = cars[Random.Range(0, cars.Count)].GetComponent<Transform>();
+                var goldRing = Instantiate(ring);
+                goldRing.transform.position = new Vector2(target.position.x, target.position.y - 0.5f);
+                goldRing.transform.parent = target.transform;
+            }
         }
             
 
@@ -115,28 +120,39 @@ public class Objective : MonoBehaviour
     // Called by the objective manager script to see if the objective has been completed
     public bool CheckObjective()
     {
-        switch(objective)
+        if (!isObjectiveComplete)
         {
-            case ObjectiveType.Null: return false;
+            switch (objective)
+            {
+                case ObjectiveType.Null: return false;
 
-            case ObjectiveType.Elimination:
-                if (elimsCurrent >= elimsRequired)
-                    return true;
-                else
-                    return false;
+                case ObjectiveType.Elimination:
+                    if (elimsCurrent >= elimsRequired)
+                        return true;
+                    else
+                        return false;
 
-            case ObjectiveType.FindTarget:
-                if (Mathf.Abs(Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, target.transform.position)) < 1.5f)
-                    return true;
-                else
-                    return false;
+                case ObjectiveType.FindTarget:
+                    if (Mathf.Abs(Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, target.transform.position)) < 1.5f)
+                    {
+                        if (target != null)
+                        {
+                            var targChild = target.GetChild(0);
+                            Destroy(targChild.gameObject);
+                            target = null;
+                        }
+                        return true;
+                    }
+                    else
+                        return false;
 
-            case ObjectiveType.Survival:
-                if (survivalTimeCurr > survivalTime)
-                    return true;
-                else
-                    return false;
+                case ObjectiveType.Survival:
+                    if (survivalTimeCurr > survivalTime)
+                        return true;
+                    else
+                        return false;
 
+            }
         }
         return false;
     }

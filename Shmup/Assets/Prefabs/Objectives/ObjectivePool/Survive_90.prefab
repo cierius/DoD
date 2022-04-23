@@ -44,14 +44,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectiveName: Survive
-  objective: 4
+  objective: 5
   isObjectiveComplete: 0
   elimsRequired: 0
   elimsCurrent: 0
   weaponUsed: 2
+  damageRequired: 0
+  damageDealt: 0
   captureTarget: {fileID: 0}
   holdTime: 0
   holdTimeCurr: 0
+  targetType: 0
   target: {fileID: 0}
   survivalTime: 90
   survivalTimeCurr: 0
+  multipleObjects: 0
+  objectsToDestroy: []

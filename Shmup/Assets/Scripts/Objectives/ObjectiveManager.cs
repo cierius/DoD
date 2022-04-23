@@ -45,10 +45,19 @@ public class ObjectiveManager : MonoBehaviour
     private List<Objective> RandomObjectiveSelection() // Selects 4 random objectives from the pool
     {
         List<Objective> objList = new List<Objective>();
+        List<int> alreadyUsedObj = new List<int>();
+
 
         for (int i = 0; i < 4; i++)
         {
-            var rand = Random.Range(0, objectivePool.Count);
+            int rand = Random.Range(0, objectivePool.Count);
+
+            while(alreadyUsedObj.Contains(rand))
+            {
+                rand = Random.Range(0, objectivePool.Count);
+            }
+
+            alreadyUsedObj.Add(rand);
             var objInstance = Instantiate(objectivePool[rand], gameObject.transform);
 
             objList.Add(objInstance.GetComponent<Objective>());

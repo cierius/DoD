@@ -94,7 +94,7 @@ public class CharController : MonoBehaviour
         healthBar.maxValue = stats.healthTotal;
         healthBar.value = stats.healthCurrent;
 
-        weaponHUD = GameObject.Find("Weapon_Selection_HUD/Selected_Weapon").GetComponent<SpriteRenderer>();
+        weaponHUD = GameObject.Find("Selected_Weapon").GetComponent<SpriteRenderer>();
         weaponHUD.sprite = stats.weaponEquipped.weaponSprite;
     }
 
@@ -434,7 +434,7 @@ public class CharController : MonoBehaviour
     private void Death() // Shows the death recap screen for specified amount of time after player dies (CURRENTLY NO DELAY WORKS)
     {
         rb.velocity = Vector2.zero;
-        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponentInChildren<SpriteRenderer>().enabled = false;
         GameObject.Find("HUD").SetActive(false);
         enabled = false;
         
