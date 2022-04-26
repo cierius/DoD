@@ -89,8 +89,10 @@
     <Compile Include="Assets\Scripts\Objectives\ObjectiveManager.cs" />
     <Compile Include="Assets\Scripts\Character Scripts\CharStats.cs" />
     <Compile Include="Assets\Scripts\Items\ItemBase.cs" />
-    <Compile Include="Assets\Scripts\MainMenu.cs" />
     <Compile Include="Assets\Scripts\HUD\RollHUD.cs" />
+    <Compile Include="Assets\Scripts\MainMenu.cs" />
+    <Compile Include="Assets\Scripts\Enemy Related Scripts\FirstBossScript.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\IEnemy.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

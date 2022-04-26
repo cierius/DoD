@@ -26,6 +26,7 @@ ADD: 2 Item icons: hiking boots, gun powder
 ADD: iFrame to the roll - currently is .1sec long right when you begin the roll
 ADD: Rooms 2 and 3 - items and stats are persistent
 ADD: A golden ring appears under the car that is the target of the objective
+ADD: Boss Room & Boss! Hooray - an actual reason to play the game!
 
 NERFS
 NERF: Rocket range reduced by 25% but projectile speed increased by 30%
@@ -37,6 +38,7 @@ NERF: Rifle mag size has been reduced to 30 from 36, projectile speed has been i
 
 BUFFS
 BUFF: Regenerative Seedling now gives +25 health along with it's +1 regen
+BUFF: Sniper damage increased to 40 from 25, crit chance increased to 10% from 5% (5% is default for most weapons)
 
 CHANGES
 CHANGE: Hiking boots is now a unique item (player can only find a single copy of each unique item)
@@ -47,6 +49,8 @@ CHANGE: Projectile damage variation has changed; the code used to vary the damag
 CHANGE: Made the ammo HUD a bit bigger and easier to read, also changed the mag counter to individual bullet count
 CHANGE: Lots of little HUD changes that don't need specified
 CHANGE: Objectives will not be duplicated in the same room
+CHANGE: Many changes to the Beamer enemy, laser now goes through the player instead of just barely touching
+
 
 ===================================================================================================
 

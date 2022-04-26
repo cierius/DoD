@@ -6,6 +6,7 @@ public class ItemPool : MonoBehaviour
 {
     public static ItemPool Instance { get; private set; } = null;
     public List<GameObject> pool = new List<GameObject>();
+    private List<GameObject> removedPool = new List<GameObject>();
 
 
     private void Awake()
@@ -27,7 +28,11 @@ public class ItemPool : MonoBehaviour
     {
         var randItem = pool[Random.Range(0, pool.Count)];
         if(randItem.GetComponent<ItemBase>().unique)
+        {
+            removedPool.Add(randItem);
             pool.Remove(randItem);
+        }
+            
 
         return randItem;
     }
@@ -50,5 +55,11 @@ public class ItemPool : MonoBehaviour
 
         var instItem = Instantiate(item);
         instItem.transform.position = new Vector2(playerPos.x, playerPos.y + 1);
+    }
+
+    public void ResetPool() // Adds back whatever Unique items that had gotten taken out
+    {
+        pool.AddRange(removedPool);
+        removedPool.Clear();
     }
 }

@@ -35,4 +35,15 @@ public class GameTimer : MonoBehaviour
 
         timeText.text = timeString;
     }
+
+    public (int, int) GetTime()
+    {
+        return (Mathf.RoundToInt(currTimeSec), currTimeMin);
+    }
+
+    public void SetTime((int sec, int min) time)
+    {
+        currTimeSec = time.sec;
+        currTimeMin = time.min;
+    }
 }

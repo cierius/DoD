@@ -112,6 +112,7 @@ public class Singleton : MonoBehaviour
     {
         print("Resetting Run");
         persistentStats.firstLoad = true;
+        GameObject.Find("ItemPool").GetComponent<ItemPool>().ResetPool();
         SceneManager.LoadScene(1, LoadSceneMode.Single);
     }
 
@@ -135,6 +136,8 @@ public class Singleton : MonoBehaviour
     public void SavePlayerStats() // Saves the current CharStats to a container
     {
         var charStats = GameObject.FindWithTag("Player").GetComponent<CharStats>();
+
+        persistentStats.gameTimer = GameObject.Find("Character/HUD/Game_Timer_HUD").GetComponent<GameTimer>().GetTime();
 
         persistentStats.speedAdditive = charStats.speedAdditive;
         persistentStats.healthAdditive = charStats.healthAdditive;
@@ -160,7 +163,9 @@ public class Singleton : MonoBehaviour
 
     public void LoadPlayerStats() // Loads all the CharStats variables to keep the stats persistent
     {
-        var charStats = GameObject.FindWithTag("Player").GetComponent<CharStats>(); 
+        var charStats = GameObject.FindWithTag("Player").GetComponent<CharStats>();
+
+        GameObject.Find("Character/HUD/Game_Timer_HUD").GetComponent<GameTimer>().SetTime(persistentStats.gameTimer);
 
         charStats.speedAdditive = persistentStats.speedAdditive;
         charStats.healthAdditive = persistentStats.healthAdditive;
@@ -209,6 +214,8 @@ public class Singleton : MonoBehaviour
 
 class CharStatsContainer
 {
+    public (int sec, int min) gameTimer = (0, 0); // Keeping the overall game timer persistent
+    
     public float speedAdditive = 0f; // Used for speed boosts / bonus speed upgrades
 
     public float healthCurrent;

@@ -9678,10 +9678,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree
       objectReference: {fileID: 0}
-    - target: {fileID: 7102417919739880750, guid: 0d1e40f1287b5fb438a7367c592db2c7, type: 3}
-      propertyPath: m_SortingOrder
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7102417919739880751, guid: 0d1e40f1287b5fb438a7367c592db2c7, type: 3}
       propertyPath: m_RootOrder
       value: 0

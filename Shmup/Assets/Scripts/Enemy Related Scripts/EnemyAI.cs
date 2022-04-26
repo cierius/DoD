@@ -215,33 +215,35 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
 
     float windUpTimer = 0;
+    float chargeUpReq = .4f;
     float attackDurTimer = 0;
-    float attackDur = .25f;
-    private void Attack(Vector2 target)
+    float attackDur = .2f;
+    private void Attack(Vector2 target) // shoots a laser beam at the targets original position when the enemy wound up its attack
     {
         windUpTimer += Time.deltaTime;
 
-        if (windUpTimer > 0.5f)
+        if (windUpTimer > chargeUpReq) // Done winding up, attack time
         {
             laser.SetPosition(0, new Vector3(trans.position.x, trans.position.y + .35f, trans.position.z - 1));
             laser.SetPosition(1, new Vector3(trans.position.x, trans.position.y + .25f, trans.position.z - 1));
             laser.enabled = true;
 
 
-            if (attackDurTimer <= attackDur)
+            if (attackDurTimer <= attackDur) // How long the beam is shot
             {
                 attackDurTimer += Time.deltaTime;
 
-                Vector2 laserLerp = Vector2.Lerp(target, playerTrans.position, .75f);
-                laser.SetPosition(1, laserLerp);
+                Vector2 slope = new Vector2(target.x - trans.position.x, target.y - trans.position.y);
+                Vector2 laserEnd = target + (slope*0.25f);
 
-                RaycastHit2D hit = Physics2D.Linecast(trans.position, laserLerp, playerMask);
-                if (hit.collider != null)
-                {
+                laser.SetPosition(1, laserEnd);
+
+                RaycastHit2D hit = Physics2D.Linecast(trans.position, laserEnd, playerMask);
+
+                if (hit.collider != null) // If the beam hits the player then deal damage
                     playerScript.ReceiveDamage(damage);
-                }
             }
-            else
+            else // After the beam has shot, reset timers to 0 and turn of the laser
             {
                 windUpTimer = 0;
                 attackDurTimer = 0;
